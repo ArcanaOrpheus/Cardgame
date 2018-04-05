@@ -5,12 +5,6 @@ public class tablero {
 		static int size2= 10;
 		static Taulell t = new Taulell();
 	    static Finestra f = new Finestra(t);
-		public static int table[][]= {
-				{ 1, 0, 0, 0, 0, 0, 0, 1, 9},
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 1},
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 1},
-				{ 8, 1, 0, 0, 0, 0, 0, 0, 1},
-		};
 		
 		public static int battletable[][]= {
 				
@@ -37,14 +31,44 @@ public class tablero {
 				
 		};
 		
-	public static void main(String[] args) {
+		public static int bench[][]= {
+			   //0  1  2  3  4   5   6  7   8  9  10  11 12 13 14 
+				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1,  1, 1, 1, 1},//0
+				{1, 1, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 1, 1}, //1
+				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1,  1, 1, 1, 1}, //2
+				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //3
+				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //4
+				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //5
+				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //6
+				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //7
+				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //8
+				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //9
+				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //10
+				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //11
+				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //12
+				{1, 1, 1, 1,  1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //13
+				{1, 1, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 1, 1}, //14
+				{1, 1, 1, 1,  1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //15
+				 
+		};
+		
+		public static int hand[][]= {
+			   //0 1 2 3 4 5 6 7 8 9 10 
+				{1, 1,1,1,1,1,1,1,1, 1,1}, //0
+				{1,11,3,3,3,3,3,3,3,13,1}, //1
+				{1,16,1,1,1,1,1,1,1,16,1}, //2
+				{1,16,1,1,1,1,1,1,1,16,1}, //3
+				{1,16,1,1,1,1,1,1,1,16,1},//4
+				{1,16,1,1,1,1,1,1,1,16,1},//5
+				{1,16,1,1,1,1,1,1,1,16,1},//6
+				{1,16,1,1,1,1,1,1,1,16,1},//7
+				{1,16,1,1,1,1,1,1,1,16,1},//8
+				{1,16,1,1,1,1,1,1,1,16,1},//9
+				{1,12,3,3,3,3,3,3,3,14,1}, //10
+				{1, 1,1,1,1,1,1,1,1, 1,1}, //11
+		};
 	
-		// TODO Auto-generated method stub
-		inicialitzarGUI();
-		viewtable();
-	}
-	
-    private static void inicialitzarGUI() {
+		private static void inicialitzarGUI() {
     	t.setActimatges(true);  // /**  @param actimatges activo imatges
     	t.setActimgbackground(false);	/*/
        // t.setActimgbackground(true);/**  @param actimgbackground activo background
@@ -56,24 +80,24 @@ public class tablero {
     			,"" //1 Empty
     			,"separador.jpg" //2 Separador horizontal verde
     			,"separador_menu.jpg" //3 Separador horizontal naranja
-    			,"peloticavacia.jpg" //4 Redonda vacia
+    			,"peloticavacia.png" //4 Redonda vacia
     			,"HP.jpg" //5
     			,"" //6 empty
     			,"entrenador.jpg", //7 entrenador
     			"rival.jpg", //8 ira el nombre
-    			"up_down.jpg", //9 curva de izq-abajo verde
-    			"down_up.jpg", //10 curva de arriba-der verde
-    			"left_right.jpg", //11
-    			"down_up_menu.jpg", //12
-    			"up_down_menu.jpg", //13
-    			"right_left.jpg", //14
+    			"up_down.png", //9 curva de izq-abajo verde
+    			"down_up.png", //10 curva de arriba-der verde
+    			"left_right.png", //11 curva naranja der-abajo
+    			"down_up_menu.png", //12 curva naranja arriba-der
+    			"up_down_menu.png", //13 curva naranja izq-abajo
+    			"right_left.png", //14 curva naranja izq-arriba
     			"vertical.jpg", //15 Separador vertical verde
-    			"vertical_menu+.jpg" //16 separador vertical naranja
+    			"vertical_menu+.jpg", //16 separador vertical naranja
+    			"backside.png" //17 carta boca abajo
     			};
     	t.setImatges(imatges); //Paso la string de imatges
-    	
         t.setActcolors(false); //Desactivo els colors
-       
+        t.setPAD(0);
 	}
 	
 	public static void viewtable() {

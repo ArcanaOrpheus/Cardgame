@@ -16,15 +16,22 @@ public class Game {
     static players p = new players();
     static ArrayDeque <Carta> deck1= new ArrayDeque <Carta>();
 	static ArrayDeque <Carta> deck2= new ArrayDeque <Carta>();
-	static ArrayDeque <Carta> referencedeck= new ArrayDeque <Carta>();
+	static ArrayDeque <Carta> biblioteca = new ArrayDeque<Carta>();
 	static Scanner sc = new Scanner (System.in);
 	static player[] playerl;
-	static int hpp=1000;
 	public static void main(String[] args) {
 		/*
 		 * Tipico main con una unica funcion
 		 */
+		construcction();
 		menu();
+	}
+	
+	private static void construcction() {
+		Carta Growlithe = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68);
+		biblioteca.add(Growlithe);
+    	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7);
+    	biblioteca.add(Squirtle);
 	}
 	
 	private static void menu() {
@@ -37,8 +44,7 @@ public class Game {
 				tablero.ready();
 				System.out.println("Menu");
 				System.out.println("0- Salir");
-				System.out.println("1 - Configuracion");
-				System.out.println("2 - Jugar");
+				System.out.println("1 - Jugar");
 				
 				op = sc.nextInt();
 				switch(op) {
@@ -52,13 +58,7 @@ public class Game {
 						 */
 					break;
 					case 1: 
-						config();
-					break;
-					case 2: 
 						play();
-						/*
-						 * Cambia de jugador
-						 */
 					break;
 					
 				}
@@ -70,36 +70,11 @@ public class Game {
 		System.exit(0);
 	}
 	
-	private static void config() {
-		System.out.println("1- Cambiar nombres jugadores");
-		System.out.println("2- Cambiar los puntos de vida");
-		int opc = sc.nextInt();
-		switch(opc) {
-			default:
-				System.out.println("No es una opcion, para");
-			break;
-			case 1: 
-				System.out.print("Introducir el nombre del jugador 1: ");
-				players.p1.name = sc.nextLine();
-				System.out.print("Introducir el nombre del jugador 2: ");
-				players.p2.name = sc.nextLine();
-			break;
-			case 2:
-				System.out.print("Introducir valor de HP: ");
-				int hp = sc.nextInt();
-				players.p1.hp = hp;
-				players.p2.hp = hp;
-				hpp=hp;
-			break;	
-		}
-	}
-	
 	private static void play() {
 		/*
 		 * Funcio que desenvolupa la partida
 		 * Haura de fer recursivitat amb playp1 i playp2
 		 */
-		inittauler();
 		players.newplayer();
 		ArrayList<ArrayDeque <Carta>>clist = deck.createdeck();
 		deck1 = clist.get(0);
@@ -108,36 +83,12 @@ public class Game {
 		System.out.println("Robando cartas...");
 		drawini(deck1,deck2);
 		int victoria = 0;
-		players.p1.hp = hpp;
-		players.p2.hp = hpp;
 		while (victoria==0) {
 		playp1();
 		if(comprovarvictoria()==0) {
 		playp2();}
 		victoria = comprovarvictoria();
 		}
-	}
-
-	private static void inittauler() {
-		for(int i=0;i<4;i++){
-			for(int j=0;j<9;j++){
-				if(i!=3 && j==0) 
-					tablero.table[i][j]=1;
-				else if(i!=0 && j==8) {
-					tablero.table[i][j]=1;
-				}
-				else if(i==3 && j==0) {
-					tablero.table[i][j]=8;
-				}
-				else if(i==0 && j==8) {
-					tablero.table[i][j]=9;
-				}
-				else tablero.table[i][j]=0;
-				System.out.print(tablero.table[i][j]);
-			}
-			System.out.println();
-		}
-				
 	}
 	
 	private static void drawini (ArrayDeque<Carta> deck,ArrayDeque<Carta> deck2 ) {
@@ -367,8 +318,8 @@ public class Game {
 	}
 	
 	private static int comprovarvictoria() {
-		
-		System.out.println("Vida actual jugador 1:"+players.p1.hp);
+		return 1;
+		/*System.out.println("Vida actual jugador 1:"+players.p1.hp);
 		System.out.println("Vida actual jugador 2: "+players.p2.hp);
 		if(players.p1.hp==0) {
 			return 2;
@@ -376,7 +327,7 @@ public class Game {
 		else if(players.p2.hp==0) {
 			return 1;
 		}
-		else return 0;
+		else return 0;*/
 	}
 	
 		
