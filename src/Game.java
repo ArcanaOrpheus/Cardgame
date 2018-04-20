@@ -13,168 +13,169 @@ public class Game {
 	static Taulell t = new Taulell();
     static Finestra f = new Finestra(t);
     static tablero l = new tablero();
-    static players p = new players();
     static ArrayDeque <Carta> deck1= new ArrayDeque <Carta>();
 	static ArrayDeque <Carta> deck2= new ArrayDeque <Carta>();
+	static ArrayList <Carta> hand= new ArrayList <Carta>();
+	static ArrayList <Carta> hand2= new ArrayList <Carta>();
 	static ArrayDeque <Carta> biblioteca = new ArrayDeque<Carta>();
+	static ArrayList <Carta> premios1= new ArrayList <Carta>();
+	static ArrayList <Carta> premios2= new ArrayList <Carta>();
 	static Scanner sc = new Scanner (System.in);
 	static player[] playerl;
+	static Carta cartaatack;
+	static ArrayList <Carta> bancoplayer = new ArrayList <Carta>();
+	static Carta cartadef;
+	static ArrayList <Carta> bancoia = new ArrayList <Carta>();
+	static int turno=0;
+	
 	public static void main(String[] args) {
-		/*
-		 * Tipico main con una unica funcion
-		 */
+		tablero.inicialitzarGUI();
 		construcction();
-		menu();
+		play();
 	}
 	
 	private static void construcction() {
-		Carta Growlithe = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68);
+		Carta Growlithe = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68, true, "Arcanine");
 		biblioteca.add(Growlithe);
-    	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7);
+    	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle");
     	biblioteca.add(Squirtle);
-	}
-	
-	private static void menu() {
-		/*
-		 * Menu que mes endevant tindra varies opcions
-		 */
-			int op=30;
-			while (op!=0) {
-				System.out.println("MEMELORD");
-				tablero.ready();
-				System.out.println("Menu");
-				System.out.println("0- Salir");
-				System.out.println("1 - Jugar");
-				
-				op = sc.nextInt();
-				switch(op) {
-					default:
-						System.out.println("No es una opcion, para");
-					break;
-					case 0:
-						exit();
-						/*
-						 * 	torna a la funció battle i despres torna a la funcio endturn
-						 */
-					break;
-					case 1: 
-						play();
-					break;
-					
-				}
-			}
-	}
-	
-	private static void exit() {
-		System.out.println("Gracies per jugar");
-		System.exit(0);
-	}
-	
+    	Carta Magikarp = new Carta(30, 30, "Epic Splash", 0, "", "Magikarp", 7,true, "Gyarados");
+    	biblioteca.add(Magikarp);
+    	Carta Gyarados = new Carta(100, 40, "Tornado", 70, "Furia Dragon", "Gyarados", 7, false, "");
+    	biblioteca.add(Gyarados);
+    	Carta Arcanine = new Carta(90, 20, "Ascuas", 70, "Envite igneo", "Arcanine", 7,false, "");
+    	biblioteca.add(Arcanine);
+    	Carta Wartortle = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise");
+    	biblioteca.add(Wartortle);
+    	Carta Blastoise = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "");
+    	biblioteca.add(Blastoise);
+    	Carta Growlithe2 = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68, true, "Arcanine");
+		biblioteca.add(Growlithe2);
+    	Carta Squirtle2 = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle");
+    	biblioteca.add(Squirtle2);
+    	Carta Magikarp2 = new Carta(30, 30, "Epic Splash", 0, "", "Magikarp", 7,true, "Gyarados");
+    	biblioteca.add(Magikarp2);
+    	Carta Gyarados2 = new Carta(100, 40, "Tornado", 70, "Furia Dragon", "Gyarados", 7, false, "");
+    	biblioteca.add(Gyarados2);
+    	Carta Arcanine2 = new Carta(90, 20, "Ascuas", 70, "Envite igneo", "Arcanine", 7,false, "");
+    	biblioteca.add(Arcanine2);
+    	Carta Wartortle2 = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise");
+    	biblioteca.add(Wartortle2);
+    	Carta Blastoise2 = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "");
+    	biblioteca.add(Blastoise2);
+    	
+    	deck1.addAll(biblioteca);
+    	deck2.addAll(biblioteca);
+    	System.out.println("d1"+deck1);
+    	System.out.println("d2"+deck2);
+    }
+
 	private static void play() {
-		/*
-		 * Funcio que desenvolupa la partida
-		 * Haura de fer recursivitat amb playp1 i playp2
-		 */
-		players.newplayer();
-		ArrayList<ArrayDeque <Carta>>clist = deck.createdeck();
-		deck1 = clist.get(0);
-		deck2 = clist.get(1);
-		referencedeck = clist.get(2);
+		pregame();
 		System.out.println("Robando cartas...");
-		drawini(deck1,deck2);
 		int victoria = 0;
 		while (victoria==0) {
 		playp1();
-		if(comprovarvictoria()==0) {
+		victoria=comprovarvictoria();
+		if(victoria==0) {
 		playp2();}
-		victoria = comprovarvictoria();
+		}
+		endgame(victoria);
+	}
+	
+	private static void pregame() {
+		tablero.drawhand();
+		draw();
+		getprices();
+		System.out.println("Elige una carta para poner en juego");
+		int op= sc.nextInt();
+		cartaatack=hand.get(op);
+		System.out.println(cartaatack.nombre);
+		System.out.println("Elige hasta 5 cartas para poner en el banco (0 para ninguna)");
+		for(int i=0; i<5;i++) {
+			op=sc.nextInt();
+			if(op==0) {}
+			else {
+			Carta cartabanco = hand.get(op);
+			bancoplayer.add(cartabanco);}
+		}
+		player2pre();
+	}
+		
+	private static void draw() {
+		for(int i=0;i<2;i++) {
+			hand.add(deck1.getFirst());
+			deck1.pop();
+			System.out.println(deck1);
+		}
+		System.out.println(hand);
+		for(int i=0;i<7;i++) {
+			hand2.add(deck2.getFirst());
+			deck2.pop();
+		}
+		System.out.println(hand2);
+	}
+	
+	private static void getprices() {
+		System.out.println("Colocando premios...");
+		for(int i=0; i<1;i++) {
+			premios1.add(deck1.getFirst());
+			premios2.add(deck2.getFirst());
+			deck1.pop();
+			deck2.pop();
+			System.out.println(deck1);
 		}
 	}
 	
-	private static void drawini (ArrayDeque<Carta> deck,ArrayDeque<Carta> deck2 ) {
-		/*
-		 * Funcio que al inici de la partida posa la ma incial a la ma de cada jugador (5 cartes)
-		 */
-		for(int i=0;i<5;i++) {
-			tablero.table[3][i+2]=deck.getFirst().numero;
-			deck.pop();
-			
+	private static void player2pre() {
+		System.out.println("Elige una carta para poner en juego");
+		int op= sc.nextInt();
+		cartadef=hand2.get(op);
+		System.out.println(cartadef.nombre);
+		System.out.println("Elige hasta 5 cartas para poner en el banco (0 para ninguna)");
+		for(int i=0; i<5;i++) {
+			op=sc.nextInt();
+			if(op==0) {}
+			else {
+			Carta cartabanco = hand2.get(op);
+			bancoia.add(cartabanco);}
 		}
-		for(int i=0;i<5;i++) {
-			tablero.table[0][i+2]=deck2.getFirst().numero;
-			deck2.pop();
-		}
-		tablero.viewtable();
+		
 	}
 	
 	private static void playp1() {
-		/*
-		 * Funcio que fa de torn del jugador 1
-		 */
-		drawp1(deck1);
-		usecardp1(tablero.table);
-		battlep1();
-		//endturn();
+		turno=0;
+		drawp1();
+		battle1();
 	}
 	
-	private static void drawp1 (ArrayDeque<Carta> deck) {
-		/*
-		 * Jugador 1 roba carta
-		 */		
+	private static void drawp1 () {	
 		System.out.println("Robando cartas...");
 
 		boolean draw = false;
-		int i=0;
 		while(!draw) {
-			System.out.println("entra");
-			if(deck.isEmpty()==true) {
-				players.p1.hp-=100;
+			System.out.println("entradp");
+			if(deck1.isEmpty()==true) {
+				System.out.println("empty");
 				draw=true;
-				System.out.println("entra2");
+				comprovarvictoria();
 			}
-			else if(tablero.table[3][i]==0) {
-				tablero.table[3][i]=deck.getFirst().numero;
-				deck.pop();	
+			else{
+				hand.add(deck1.getFirst());
+				deck1.pop();
+				System.out.println("efectivamente entro aqui una vez"+deck1);
 				draw=true;
-				
-				System.out.println("entra1");
 			}
-			i++;
 		}
 	}
 	 
-	private static void usecardp1(int table[][]) {
-		/*
-		 * Jugador 1 juga una carta que es posa al tauler. Limit 1 carta per torn
-		 */
-		int i=0;
-		boolean ok= false;
-		System.out.print("Elige carta para poner en el tablero: ");
-		int card= sc.nextInt();
-		int carta= tablero.table[3][card];
-		while(!ok) {
-			if(tablero.table[2][i]==0) {
-				tablero.table[2][i]=carta;
-				ok=true;
-			}
-			i++;
-		}
-		tablero.viewtable(); //TODO
-	}
-	
 	private static void playp2() {
-		/*
-		 * Funcio que fa de torn del jugador 2
-		 */
-		drawp2(deck2);
-		usecardp2(tablero.table);
-		battlep2();
+		turno=1;
+		drawp2();
+		battle2();
 	}
 	
-	private static void drawp2 (ArrayDeque<Carta> deck2) {
-		/*
-		 * Jugador 2 roba carta
-		 */
+	private static void drawp2 () {
 		System.out.println("Robando cartas...");
 
 		boolean draw = false;
@@ -182,153 +183,111 @@ public class Game {
 		while(!draw) {
 			System.out.println("entra");
 			if(deck2.isEmpty()==true) {
-				players.p1.hp-=100;
-				draw=true;
-				System.out.println("entra2");
+				comprovarvictoria();
 			}
-			else if(tablero.table[0][i]==0) {
-				tablero.table[0][i]=deck2.getFirst().numero;
+			else{
+				hand.add(deck2.getFirst());
 				deck2.pop();	
 				draw=true;
-				
-				System.out.println("entra1");
 			}
-			i++;
 		}
 	}
 	
-	private static void usecardp2(int table[][]) {
-		/*
-		 * Jugador 2 juga una carta que es posa al tauler. Limit 1 carta per torn
-		 */
-		int i=0;
-		boolean ok= false;
-		System.out.print("Elige carta para poner en el tablero: ");
-		int card= sc.nextInt();
-		int carta= tablero.table[3][card];
-		while(!ok) {
-			if(tablero.table[1][i]==0) {
-				tablero.table[1][i]=carta;
-				ok=true;
-			}
-			i++;
+	private static void battle1 () {
+		System.out.println(cartaatack.atak1+ " "+ cartaatack.ataque1);
+		System.out.println(cartaatack.atak2+ " "+ cartaatack.ataque2);
+		System.out.println("Selecciona un ataque: ");
+		int selectattack=0;
+		int op= sc.nextInt();
+		switch(op) {
+			case 1:
+				selectattack=cartaatack.ataque1;
+			break;
+			case 2:
+				selectattack=cartaatack.ataque2;
+			break;
 		}
-		tablero.viewtable(); //TODO
+		
+		cartadef.vida-=selectattack;
+		System.out.println(cartadef.vida);
+		
+		if(cartadef.vida<=0) {
+			defeatediacard();
+		}
+		
+		}
+	
+	private static void defeatediacard() {
+		System.out.println(cartadef.nombre+" derrotado, elige un premio(del 1 al 6): ");
+		int op = sc.nextInt();
+		
+		if(premios1.isEmpty()) {
+			comprovarvictoria();
+		}
+		else hand.add(premios1.get(op));
 	}
 	
-	private static void battlep1() {
-		/*
-		 * Funcio que fa que el jugador trii una carta per atacar a una altra. Si no hi han cartes ataca a la vida del rival
-		 * Hauria de dividirla en battlep1 i battlep2
-		 * Cartes han de superar els punts de defensa amb els punts de atac, si no no destrueix la carta,
-		 *  actualment no pasa res, mes endevant podria restar la diferencia als punts de vida del jugador corresponent
-		 * 
-		 */
-		int selectatk=0,selectdef=0;
-		System.out.print ("Elige la carta atacante: ");
-		int cartaataca=sc.nextInt()+1;
-		System.out.print("Elige a que carta atacar");
-		int cartaobjectiu= sc.nextInt()+1 ;
-		
-		/*
-		 * cartaataca(atac)vs cartaobjectiu(defensa)
-		 */
-		int select = tablero.table[2][cartaataca];
-		int select2 = tablero.table[1][cartaobjectiu];
-		
-		/*Conseguir ataque de una carta */
-		for (Carta i : referencedeck) {
-			if (i.numero==select) {
-				selectatk = i.ataque;
-			}
+	private static void battle2() {
+		System.out.println(cartadef.atak1+ " "+ cartadef.ataque1);
+		System.out.println(cartadef.atak2+ " "+ cartadef.ataque2);
+		System.out.println("Selecciona un ataque: ");
+		int selectattack=0;
+		int op= sc.nextInt();
+		switch(op) {
+			case 1:
+				selectattack=cartadef.ataque1;
+			break;
+			case 2:
+				selectattack=cartadef.ataque2;
+			break;
 		}
 		
-		for (Carta i : referencedeck) {
-			if (i.numero==select2) {
-				selectdef = i.ataque;
-			}
+		cartaatack.vida-=selectattack;
+		System.out.println(cartadef.vida);
+		
+		if(cartaatack.vida<=0) {
+			defeatedcard();
 		}
 		
-		if(selectatk>selectdef) {
-			tablero.table[1][cartaobjectiu]=0;
-			players.p2.hp-=(selectatk-selectdef);
 		}
-		if(selectatk<selectdef) {
-			tablero.table[1][cartaataca]=0;
-			players.p1.hp-=(selectdef-selectatk);
-		}
-		if(selectatk==selectdef) {
-			tablero.table[1][cartaobjectiu]=0;
-			tablero.table[1][cartaataca]=0;
-		}
-
-		tablero.viewtable();
-		System.out.println("Vida jugador 1: "+players.p1.hp);
-		System.out.println("Vida jugador 2: "+players.p2.hp);
-	}
 	
-	private static void battlep2() {
-		/*
-		 * Funcio que fa que el jugador trii una carta per atacar a una altra. Si no hi han cartes ataca a la vida del rival
-		 * Hauria de dividirla en battlep1 i battlep2
-		 * Cartes han de superar els punts de defensa amb els punts de atac, si no no destrueix la carta,
-		 *  actualment no pasa res, mes endevant podria restar la diferencia als punts de vida del jugador corresponent
-		 * 
-		 */
-		int selectatk=0,selectdef=0;
-		System.out.print ("Elige la carta atacante: ");
-		int cartaataca=sc.nextInt()+1;
-		System.out.print("Elige a que carta atacar");
-		int cartaobjectiu= sc.nextInt()+1 ;
-		
-		/*
-		 * cartaataca(atac)vs cartaobjectiu(defensa)
-		 */
-		int select = tablero.table[1][cartaataca];
-		int select2 = tablero.table[2][cartaobjectiu];
-		
-		/*Conseguir ataque de una carta TODO*/
-		for (Carta i : referencedeck) {
-			if (i.numero==select) {
-				selectatk = i.ataque;
+	private static void defeatedcard() {
+		System.out.println(cartaatack.nombre+" derrotado, elige un premio(del 1 al 6): ");
+		int op = sc.nextInt();
+		if(premios1.isEmpty()) {
+			comprovarvictoria();
+		}
+		else {
+			hand2.add(premios2.get(op));
+			if(bancoplayer.isEmpty()) {
+				comprovarvictoria();
+			}
+			else {
+				System.out.println("Selecciona una carta del banco para poner en juego");
+				int ope=sc.nextInt();
+				cartadef=bancoplayer.get(ope);
+				bancoplayer.remove(ope);
 			}
 		}
-		
-		for (Carta i : referencedeck) {
-			if (i.numero==select2) {
-				selectdef = i.ataque;
-			}
-		}
-		
-		if(selectatk>selectdef) {
-			tablero.table[1][cartaobjectiu]=0;
-			players.p2.hp-=(selectatk-selectdef);
-		}
-		if(selectatk<selectdef) {
-			tablero.table[1][cartaataca]=0;
-			players.p1.hp-=(selectdef-selectatk);
-		}
-		if(selectatk==selectdef) {
-			tablero.table[1][cartaobjectiu]=0;
-			tablero.table[1][cartaataca]=0;
-		}
-		tablero.viewtable();
-		System.out.println("Vida jugador 1: "+players.p1.hp);
-		System.out.println("Vida jugador 2: "+players.p2.hp);
+		 
 	}
 	
 	private static int comprovarvictoria() {
-		return 1;
-		/*System.out.println("Vida actual jugador 1:"+players.p1.hp);
-		System.out.println("Vida actual jugador 2: "+players.p2.hp);
-		if(players.p1.hp==0) {
-			return 2;
-		}
-		else if(players.p2.hp==0) {
+		if((turno==0 && premios2.isEmpty())||(turno==1 && deck2.isEmpty()) || (turno==1 && bancoia.isEmpty())){
 			return 1;
 		}
-		else return 0;*/
+		else if ((turno==1 && premios1.isEmpty())||(turno==0 && deck1.isEmpty())||(turno==0 && bancoplayer.isEmpty())) {
+			return 2;
+		}
+		else return 0;
 	}
-	
+	private static void endgame(Integer victoria){
+		if(victoria==1) {
+			System.out.println("Gana el jugador 1");
+		}
+		else {
+			System.out.println("Gana el jugador 2");
+		}
+	}
 		
 }

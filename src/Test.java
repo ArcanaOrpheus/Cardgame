@@ -3,7 +3,8 @@
 public class Test {
 
 	public static void main(String[] args) {
-		tablero.ready();		
+		tablero.inicialitzarGUI();
+		tablero.drawbattletable();		
 	}
 
 }

@@ -7,8 +7,10 @@ public class Carta {
     public String atak2;
     public int vida;
     public int numero;
+    public boolean evol;
+    public String evolution;
     
-    public Carta (int vida, int ataque1, String atak1, int ataque2, String atak2, String nombre, int numero){
+    public Carta (int vida, int ataque1, String atak1, int ataque2, String atak2, String nombre, int numero, boolean evol, String evolution){
     	this.vida=vida;
     	this.ataque1=ataque1;
     	this.atak1=atak1;
@@ -16,6 +18,8 @@ public class Carta {
     	this.atak2=atak2;
     	this.nombre=nombre;
     	this.numero=numero;
+    	this.evol=evol;
+    	this.evolution=evolution;
     	
     }
     

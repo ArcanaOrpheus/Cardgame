@@ -39,10 +39,10 @@ public class tablero {
 				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //3
 				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //4
 				{1, 1, 1, 1,  1,  1, 1,  1, 1,  1, 1, 17, 17,1, 1}, //5
-				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //6
-				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //7
-				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //8
-				{1, 1, 1, 1,  1,  1, 17, 17, 17, 1, 1, 1, 1, 1, 1}, //9
+				{1, 1, 1, 1,  1,  1, 1 , 1 , 1 , 1, 1, 1, 1, 1, 1}, //6
+				{1, 1, 1, 1,  1,  1, 1 , 1 , 1 , 1, 1, 1, 1, 1, 1}, //7
+				{1, 1, 1, 1,  1,  1, 1 , 1 , 1 , 1, 1, 1, 1, 1, 1}, //8
+				{1, 1, 1, 1,  1,  1, 1 , 1 , 1 , 1, 1, 1, 1, 1, 1}, //9
 				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //10
 				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //11
 				{1, 1, 17,17, 1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //12
@@ -50,6 +50,12 @@ public class tablero {
 				{1, 1, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 1, 1}, //14
 				{1, 1, 1, 1,  1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1}, //15
 				 
+		};
+		
+		public static int bencover[][]= {
+				{1,1,1},
+				{1,17,1},
+				{1,1,1},
 		};
 		
 		public static int hand[][]= {
@@ -68,7 +74,7 @@ public class tablero {
 				{1, 1,1,1,1,1,1,1,1, 1,1}, //11
 		};
 	
-		private static void inicialitzarGUI() {
+		public static void inicialitzarGUI() {
     	t.setActimatges(true);  // /**  @param actimatges activo imatges
     	t.setActimgbackground(false);	/*/
        // t.setActimgbackground(true);/**  @param actimgbackground activo background
@@ -100,18 +106,20 @@ public class tablero {
         t.setPAD(0);
 	}
 	
-	public static void viewtable() {
+	public static void drawbattletable() {
 		/*
 		 * Funcio que dibuixa el tauler
 		 */
 		t.dibuixa(battletable);
 	}
 	
-	public static void ready() {
-		/*
-		 * Funcio que inicialitza el tauler i la GUI
-		 */
-		inicialitzarGUI();
-		viewtable();
+	public static void drawhand() {
+		t.dibuixa(hand);
+	}
+	
+	public static void drawbench() {
+		t.dibuixa(bench);
+		t.setActoverdraw(true);
+		t.overdibuixa(bencover);
 	}
 }
