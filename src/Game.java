@@ -20,8 +20,8 @@ public class Game {
 	static ArrayDeque <Carta> biblioteca = new ArrayDeque<Carta>();
 	static ArrayList <Carta> premios1= new ArrayList <Carta>();
 	static ArrayList <Carta> premios2= new ArrayList <Carta>();
+	static ArrayDeque <Carta> deckfuego = new ArrayDeque <Carta>();
 	static Scanner sc = new Scanner (System.in);
-	static player[] playerl;
 	static Carta cartaatack;
 	static ArrayList <Carta> bancoplayer = new ArrayList <Carta>();
 	static Carta cartadef;
@@ -35,39 +35,85 @@ public class Game {
 	}
 	
 	private static void construcction() {
-		Carta Growlithe = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68, true, "Arcanine");
+		//Deck1
+		
+		Carta Caterpie = new Carta(50, 20, "Placaje", 0,"","Caterpie", 3,true, "Metapod", 0, ""); 
+		biblioteca.add(Caterpie);
+		deckfuego.add(Caterpie);
+		deckfuego.add(Caterpie);
+		Carta Metapod = new Carta(80, 30, "Picadura", 0,"","Metapod", 3,false, "", 1, "Caterpie"); 
+		biblioteca.add(Metapod);
+		deckfuego.add(Metapod);
+		Carta NidoranF = new Carta(50, 40, "Doble patada", 0,"","NidoranF", 3,false, "", 0, ""); 
+		biblioteca.add(NidoranF); 
+		deckfuego.add(NidoranF);
+		deckfuego.add(NidoranF);
+		Carta NidoranM = new Carta(50, 40, "Cornada", 0,"","NidoranM", 3,false, "", 0, ""); 
+		biblioteca.add(NidoranM);
+		deckfuego.add(NidoranM);
+		Carta Pinsir = new Carta(80, 50, "Guillotinazo",0,"","Pinsir",3,false,"",0,"");
+		biblioteca.add(Pinsir);
+		deckfuego.add(Pinsir);
+		Carta Charmander = new Carta(60, 10, "Arañazo", 30, "Ascuas", "Charmander", 7, true, "Charmaleon",0,"");
+    	biblioteca.add(Charmander);
+    	deckfuego.add(Charmander);
+    	deckfuego.add(Charmander);
+    	Carta Charmeleon = new Carta(90, 30, "Cuchillada", 70, "Lanzallamas", "Charmeleon", 7, true, "Charizard",1,"Charmander");
+    	biblioteca.add(Charmeleon);
+    	deckfuego.add(Charmeleon);
+    	Carta Charizard= new Carta(120, 60, "Ataque ala",120, "Llamarada", "Charizard", 7, false, "",1,"Charmeleon");
+    	biblioteca.add(Charizard);
+    	deckfuego.add(Charizard);
+		Carta Growlithe = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68, true, "Arcanine",0, "");//2
 		biblioteca.add(Growlithe);
-    	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle");
-    	biblioteca.add(Squirtle);
-    	Carta Magikarp = new Carta(30, 30, "Epic Splash", 0, "", "Magikarp", 7,true, "Gyarados");
-    	biblioteca.add(Magikarp);
-    	Carta Gyarados = new Carta(100, 40, "Tornado", 70, "Furia Dragon", "Gyarados", 7, false, "");
-    	biblioteca.add(Gyarados);
-    	Carta Arcanine = new Carta(90, 20, "Ascuas", 70, "Envite igneo", "Arcanine", 7,false, "");
+		deckfuego.add(Growlithe);
+		deckfuego.add(Growlithe);
+		Carta Arcanine = new Carta(90, 20, "Ascuas", 70, "Envite igneo", "Arcanine", 7,false, "",1,"Growlithe");
     	biblioteca.add(Arcanine);
-    	Carta Wartortle = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise");
+    	deckfuego.add(Arcanine);
+    	Carta Ponyta = new Carta(60, 20, "Placaje", 40, "Pisoton", "Ponyta", 7,false, "",0,"");
+    	biblioteca.add(Ponyta);
+    	deckfuego.add(Ponyta);
+    	deckfuego.add(Ponyta);
+    	Carta Magmar=new Carta(80, 30, "Puño fuego", 70,"Lanzallamas", "Magmar",7, false, "",0,"");
+    	biblioteca.add(Magmar);
+    	deckfuego.add(Magmar);
+    	//Rattata(2), Raticate,Meowth
+    	Carta Seel=new Carta(50, 10, "Destructor", 30,"Rayo aurora", "Seel",7, true, "Dewgong",0,"");
+    	biblioteca.add(Seel);
+    	deckfuego.add(Seel);
+    	deckfuego.add(Seel);
+    	Carta Dewgong= new Carta(120, 40, "Carambanazo", 70, "Rayo hielo","Dewgong",7,false,"",1,"Seel");
+    	biblioteca.add(Dewgong);
+    	deckfuego.add(Dewgong);
+    	Carta Goldeen= new Carta(50, 20, "Pistola Agua", 0, "","Goldeen",7,true,"Seaking",0,"");
+    	biblioteca.add(Goldeen);
+    	deckfuego.add(Goldeen);
+    	deckfuego.add(Goldeen);
+    	Carta Seaking= new Carta(90, 70, "Cascada", 50, "Pico taladro","Seaking",7,false,"",1,"Goldeen");
+    	biblioteca.add(Seaking);
+    	deckfuego.add(Seaking);
+    	
+    	//Deck2
+    	//2 Charmander,Charmeleon,Growlithe,Arcanine,Magmar
+    	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle", 0, "");//(2)
+    	biblioteca.add(Squirtle);
+    	Carta Wartortle = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise",1,"Squirtle");
     	biblioteca.add(Wartortle);
-    	Carta Blastoise = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "");
+    	Carta Blastoise = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "",1,"Wartortle");
     	biblioteca.add(Blastoise);
-    	Carta Growlithe2 = new Carta(60, 10, "Mordisco", 0, "", "Growlithe", 68, true, "Arcanine");
-		biblioteca.add(Growlithe2);
-    	Carta Squirtle2 = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle");
-    	biblioteca.add(Squirtle2);
-    	Carta Magikarp2 = new Carta(30, 30, "Epic Splash", 0, "", "Magikarp", 7,true, "Gyarados");
-    	biblioteca.add(Magikarp2);
-    	Carta Gyarados2 = new Carta(100, 40, "Tornado", 70, "Furia Dragon", "Gyarados", 7, false, "");
-    	biblioteca.add(Gyarados2);
-    	Carta Arcanine2 = new Carta(90, 20, "Ascuas", 70, "Envite igneo", "Arcanine", 7,false, "");
-    	biblioteca.add(Arcanine2);
-    	Carta Wartortle2 = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise");
-    	biblioteca.add(Wartortle2);
-    	Carta Blastoise2 = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "");
-    	biblioteca.add(Blastoise2);
+    	//2 Seel, Dewgong,Goolden, Seaking, Staryu, Starmie,Lapras, 2 Pikachu,Magnemite,Magneton,Electabuzz,2 Rattata, Raticate, Meowth
+    	
+    	//Deck3
+    	//Bulbasaur 2, Ivysaur, Venasaur, 2 NidoranF, 2 NidoranM, Nidorino, Tangela, 2 Pikachu, Raichu, Magnemite, Electabuzz, 2 Abra, Kadabra, Gastly
+    	//Haunter, Jynx, Jigglypuff, Meowth, Kangaskan
+    	
+    	    	
+    	
+    	
     	
     	deck1.addAll(biblioteca);
     	deck2.addAll(biblioteca);
-    	System.out.println("d1"+deck1);
-    	System.out.println("d2"+deck2);
     }
 
 	private static void play() {

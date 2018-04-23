@@ -9,8 +9,10 @@ public class Carta {
     public int numero;
     public boolean evol;
     public String evolution;
+    public int clase; //0 basica, 1 evol
+    public String preevol;
     
-    public Carta (int vida, int ataque1, String atak1, int ataque2, String atak2, String nombre, int numero, boolean evol, String evolution){
+    public Carta (int vida, int ataque1, String atak1, int ataque2, String atak2, String nombre, int numero, boolean evol, String evolution, int clase, String preevol){
     	this.vida=vida;
     	this.ataque1=ataque1;
     	this.atak1=atak1;
@@ -20,6 +22,8 @@ public class Carta {
     	this.numero=numero;
     	this.evol=evol;
     	this.evolution=evolution;
+    	this.clase=clase;
+    	this.preevol=preevol;
     	
     }
     
