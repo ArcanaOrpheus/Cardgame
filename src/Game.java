@@ -17,24 +17,74 @@ public class Game {
 	static ArrayDeque <Carta> deck2= new ArrayDeque <Carta>();
 	static ArrayList <Carta> hand= new ArrayList <Carta>();
 	static ArrayList <Carta> hand2= new ArrayList <Carta>();
-	static ArrayDeque <Carta> biblioteca = new ArrayDeque<Carta>();
+	static ArrayList<Carta> biblioteca = new ArrayList<Carta>();
 	static ArrayList <Carta> premios1= new ArrayList <Carta>();
 	static ArrayList <Carta> premios2= new ArrayList <Carta>();
 	static ArrayDeque <Carta> deckfuego = new ArrayDeque <Carta>();
+	static ArrayDeque <Carta> deckagua = new ArrayDeque <Carta>();
+	static ArrayDeque <Carta> deckplanta = new ArrayDeque <Carta>();
 	static Scanner sc = new Scanner (System.in);
 	static Carta cartaatack;
 	static ArrayList <Carta> bancoplayer = new ArrayList <Carta>();
 	static Carta cartadef;
 	static ArrayList <Carta> bancoia = new ArrayList <Carta>();
 	static int turno=0;
+	static boolean mundo= true; //True estoy en el mundo, false estoy en batalla
 	
 	public static void main(String[] args) {
 		tablero.inicialitzarGUI();
 		construcction();
-		play();
+		
+		//play();
+		//tablero.draworld();
+		//movement();
 	}
 	
-	private static void construcction() {
+	/*private static void movement() {
+		
+		System.out.println("Saludos");
+		//Moviment amb wasd, z per seleccionar, x per enrere, ? per menu(?)
+		//TODO
+		int x=3,y=3; //Posicion inicial del pj
+		boolean battle=false;
+		char opt = f.getActualChar();
+		while(!battle) {
+			System.out.println(opt);
+			tablero.draworld();
+			switch(opt) {
+				case 'w':
+					tablero.world[x][y]=0;
+						x+=1;
+					break;
+				case 's':
+						tablero.world[x][y]=0;
+						x-=1;
+					break;
+				case 'a': 
+						tablero.world[x][y]=0;
+						y+=1;
+					break;
+				case 'd':
+						tablero.world[x][y]=0;
+						y-=1;
+					break;
+				case 'z':
+						if(tablero.world[x][y]==8) {
+							battle=true;
+							play();
+						}
+					break;
+				case 'x':
+					break;
+				case '?':
+					break;
+			}
+			tablero.world[x][y]=7;
+		}
+	}*/
+	
+	
+	public static void construcction() {
 		//Deck1
 		
 		Carta Caterpie = new Carta(50, 20, "Placaje", 0,"","Caterpie", 3,true, "Metapod", 0, ""); 
@@ -78,7 +128,16 @@ public class Game {
     	Carta Magmar=new Carta(80, 30, "Puño fuego", 70,"Lanzallamas", "Magmar",7, false, "",0,"");
     	biblioteca.add(Magmar);
     	deckfuego.add(Magmar);
-    	//Rattata(2), Raticate,Meowth
+    	Carta Rattata = new Carta(30, 40, "Mordisco", 20, "Placaje", "Rattata",  7, true, "Raticate",0,"");
+    	biblioteca.add(Rattata);
+    	deckfuego.add(Rattata);
+    	deckfuego.add(Rattata);
+    	Carta Raticate = new Carta(70, 20, "Ataque rapido", 60, "Hipercolmillo","Raticate", 7, false, "", 1, "Rattata");
+    	biblioteca.add(Raticate);
+    	deckfuego.add(Raticate);
+    	Carta Meowth = new Carta(60, 30, "Ataques furia", 0, "", "Meowth", 7, false, "", 0,"");
+    	biblioteca.add(Meowth);
+    	deckfuego.add(Meowth);
     	Carta Seel=new Carta(50, 10, "Destructor", 30,"Rayo aurora", "Seel",7, true, "Dewgong",0,"");
     	biblioteca.add(Seel);
     	deckfuego.add(Seel);
@@ -95,25 +154,107 @@ public class Game {
     	deckfuego.add(Seaking);
     	
     	//Deck2
-    	//2 Charmander,Charmeleon,Growlithe,Arcanine,Magmar
+    	deckagua.add(Charmander);
+    	deckagua.add(Charmander);
+    	deckagua.add(Charmeleon);
+    	deckagua.add(Growlithe);
+    	deckagua.add(Arcanine);
+    	deckagua.add(Magmar);
     	Carta Squirtle = new Carta(60, 10, "Mordisco", 30, "Cabezazo", "Squirtle", 7, true, "Wartortle", 0, "");//(2)
     	biblioteca.add(Squirtle);
+    	deckagua.add(Squirtle);
     	Carta Wartortle = new Carta(80, 40, "Doblebofeton", 30, "Lanzarocas", "Wartortle", 7,true, "Blastoise",1,"Squirtle");
     	biblioteca.add(Wartortle);
+    	deckagua.add(Wartortle);
     	Carta Blastoise = new Carta(120, 30, "Giro rapido", 100, "Hidrobomba", "Blastiose", 7, false, "",1,"Wartortle");
     	biblioteca.add(Blastoise);
-    	//2 Seel, Dewgong,Goolden, Seaking, Staryu, Starmie,Lapras, 2 Pikachu,Magnemite,Magneton,Electabuzz,2 Rattata, Raticate, Meowth
+    	deckagua.add(Blastoise);
+    	deckagua.add(Seel);
+    	deckagua.add(Seel);
+    	deckagua.add(Dewgong);
+    	deckagua.add(Goldeen);
+    	deckagua.add(Seaking);
+    	Carta Staryu = new Carta(50, 30, "Giro rapido", 20, "Placaje", "Staryu", 7, true, "Starmie",0,"");
+    	biblioteca.add(Staryu);    	
+    	deckagua.add(Staryu);
+    	Carta Starmie = new Carta(70, 50, "Surf", 70, "Rapidez", "Starmie", 7, false, "",1,"Starmie");
+    	biblioteca.add(Starmie);
+    	deckagua.add(Starmie);
+    	//Electabuzz
+    	Carta Lapras = new Carta(90, 70, "Rayo hielo", 50, "Surf", "Lapras", 7, false, "",0,"" );
+    	biblioteca.add(Lapras);
+    	deckagua.add(Lapras);
+    	deckagua.add(Lapras);
+    	Carta Pikachu = new Carta(80, 10, "Portazo", 30, "Moflete estatico", "Pikachu", 7, true, "Raichu", 0, "");
+    	biblioteca.add(Pikachu);
+    	deckagua.add(Pikachu);
+    	deckagua.add(Pikachu);
+    	Carta Magnemite = new Carta (60, 20, "Placaje", 0,"", "Magnemite", 7, true, "Magneton", 0,"");
+    	biblioteca.add(Magnemite);
+    	deckagua.add(Magnemite);
+    	Carta Magneton = new Carta (80, 30, "Onda sonica", 70, "Electrobola", "Magneton", 7, false, "", 1, "Magnemite");
+    	biblioteca.add(Magneton);
+    	deckagua.add(Magneton);
+    	Carta Electabuzz = new Carta (80, 20, "Ataque rapido", 70, "Rayo", "Electabuzz", 7, false, "", 0, "");
+    	biblioteca.add(Electabuzz);
+    	deckagua.add(Electabuzz);
+    	deckagua.add(Rattata);
+    	deckagua.add(Rattata);
+    	deckagua.add(Raticate);
+    	deckagua.add(Meowth);
+    	
     	
     	//Deck3
-    	//Bulbasaur 2, Ivysaur, Venasaur, 2 NidoranF, 2 NidoranM, Nidorino, Tangela, 2 Pikachu, Raichu, Magnemite, Electabuzz, 2 Abra, Kadabra, Gastly
-    	//Haunter, Jynx, Jigglypuff, Meowth, Kangaskan
-    	
-    	    	
-    	
-    	
-    	
-    	deck1.addAll(biblioteca);
-    	deck2.addAll(biblioteca);
+    	Carta Bulbasaur = new Carta (60, 20, "Placaje", 30, "Hoja afilada", "Bulbasaur", 7, true, "Ivysaur", 0,"");
+    	biblioteca.add(Bulbasaur);
+    	deckplanta.add(Bulbasaur);
+    	deckplanta.add(Bulbasaur);
+    	Carta Ivysaur = new Carta (100, 30, "Hoja afilada", 50, "Latigo Cepa", "Ivysaur",7,true, "Venusaur",1,"Bulbasaur");
+    	biblioteca.add(Ivysaur);
+    	deckplanta.add(Ivysaur);
+    	Carta Venusaur = new Carta (120, 80, "Planta Feroz", 70, "Rayo Solar", "Venusaur",7, false,"",1,"Ivysaur");
+    	biblioteca.add(Venusaur);
+    	deckplanta.add(Venusaur);
+    	deckplanta.add(NidoranF);
+    	deckplanta.add(NidoranF);
+    	deckplanta.add(NidoranM);
+    	deckplanta.add(NidoranM);
+    	Carta Nidorino = new Carta (80, 40, "Cornada", 80, "Bomba Lodo","Nidorino",7,true, "Nidoking", 1, "NidoranM");
+    	biblioteca.add(Nidorino);
+    	deckplanta.add(Nidorino);
+    	Carta Tangela = new Carta (80, 50, "Latigo Cepa", 0,"","Tangela",7, false,"",0,"");
+    	biblioteca.add(Tangela);
+    	deckplanta.add(Tangela);
+    	Carta Abra = new Carta (50, 20, "Placaje", 0, "", "Abra",7, true, "Kadabra", 0, "");
+    	biblioteca.add(Abra);
+    	deckplanta.add(Abra);
+    	deckplanta.add(Abra);
+    	Carta Kadabra = new Carta(80, 50, "Psiquico", 0, "", "Kadabra", 7 , false, "", 1, "Abra");
+    	biblioteca.add(Kadabra);
+    	deckplanta.add(Kadabra);
+    	Carta Gastly = new Carta(50, 20, "Placaje", 0, "", "Gastly", 7, true, "Haunter", 0, "");
+    	biblioteca.add(Gastly);
+    	deckplanta.add(Gastly);
+    	Carta Haunter = new Carta (90, 70, "Psicorayo", 0, "","Haunter",7, true, "Gengar", 1, "Gastly");
+    	biblioteca.add(Haunter);
+    	deckplanta.add(Haunter);
+    	Carta Jynx = new Carta (80, 30, "Puño hielo", 70, "Rayo hielo", "Jynx", 7, false, "",0,"");
+    	biblioteca.add(Jynx);
+    	deckplanta.add(Jynx);
+    	Carta Jigglypuff= new Carta (60, 40, "Doble bofeton", 0, "", "Jigglypuff", 7, true, "",0,"");
+    	biblioteca.add(Jigglypuff);
+    	deckplanta.add(Jigglypuff);
+    	Carta Kangaskhan = new Carta(80, 50, "Cabezazo", 100, "Megapuño", "Kangaskhan",7,false,"",0,"");
+    	biblioteca.add(Kangaskhan);
+    	deckplanta.add(Kangaskhan);
+    	deckplanta.add(Pikachu);
+    	deckplanta.add(Pikachu);
+    	deckplanta.add(Magnemite);
+    	deckplanta.add(Electabuzz);
+    	Carta Raichu = new Carta (100, 70, "Rayo", 20, "Ataque rapido", "Raichu", 7, false, "", 1, "Pikachu");
+    	deckplanta.add(Raichu);
+    	biblioteca.add(Raichu);
+    	deckplanta.add(Meowth);
     }
 
 	private static void play() {
@@ -149,7 +290,7 @@ public class Game {
 	}
 		
 	private static void draw() {
-		for(int i=0;i<2;i++) {
+		for(int i=0;i<4;i++) {
 			hand.add(deck1.getFirst());
 			deck1.pop();
 			System.out.println(deck1);
@@ -223,9 +364,7 @@ public class Game {
 	
 	private static void drawp2 () {
 		System.out.println("Robando cartas...");
-
 		boolean draw = false;
-		int i=0;
 		while(!draw) {
 			System.out.println("entra");
 			if(deck2.isEmpty()==true) {
@@ -241,7 +380,7 @@ public class Game {
 	
 	private static void battle1 () {
 		System.out.println(cartaatack.atak1+ " "+ cartaatack.ataque1);
-		System.out.println(cartaatack.atak2+ " "+ cartaatack.ataque2);
+		if(!cartaatack.atak2.isEmpty()) System.out.println(cartaatack.atak2+ " "+ cartaatack.ataque2);
 		System.out.println("Selecciona un ataque: ");
 		int selectattack=0;
 		int op= sc.nextInt();
@@ -327,6 +466,7 @@ public class Game {
 		}
 		else return 0;
 	}
+	
 	private static void endgame(Integer victoria){
 		if(victoria==1) {
 			System.out.println("Gana el jugador 1");
@@ -335,5 +475,15 @@ public class Game {
 			System.out.println("Gana el jugador 2");
 		}
 	}
-		
+
+	
+	public static ArrayList<Carta> sobres() {
+		ArrayList<Carta> sobre = new ArrayList<>();
+		for(int i=0;i<6;i++) {
+			int x = (int) (Math.random()*biblioteca.size()+1);
+			System.out.println(x);
+			sobre.add(biblioteca.get(x));
+		}
+		return sobre;
+	}
 }

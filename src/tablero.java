@@ -73,6 +73,15 @@ public class tablero {
 				{1,12,3,3,3,3,3,3,3,14,1}, //10
 				{1, 1,1,1,1,1,1,1,1, 1,1}, //11
 		};
+		
+		public static int world [][]= {
+				{0,0,0,8,0,0,0},
+				{0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0},
+				{0,0,0,7,0,0,0},
+				{0,0,0,0,0,0,3},
+				{0,0,0,0,0,0,0},
+			};
 	
 		public static void inicialitzarGUI() {
     	t.setActimatges(true);  // /**  @param actimatges activo imatges
@@ -121,5 +130,9 @@ public class tablero {
 		t.dibuixa(bench);
 		t.setActoverdraw(true);
 		t.overdibuixa(bencover);
+	}
+	
+	public static void draworld() {
+		t.dibuixa(world);
 	}
 }
