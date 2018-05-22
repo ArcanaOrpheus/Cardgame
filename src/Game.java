@@ -1,5 +1,6 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 		
 
@@ -30,11 +31,11 @@ public class Game {
 	static ArrayList <Carta> bancoia = new ArrayList <Carta>();
 	static int turno=0;
 	static boolean mundo= true; //True estoy en el mundo, false estoy en batalla
-	
+	static Random rand = new Random();
 	public static void main(String[] args) {
 		tablero.inicialitzarGUI();
 		construcction();
-		
+		 
 		//play();
 		//tablero.draworld();
 		//movement();
@@ -274,6 +275,8 @@ public class Game {
 		tablero.drawhand();
 		draw();
 		getprices();
+		deck1=barajar(deck1);
+		deck2=barajar(deck2);
 		System.out.println("Elige una carta para poner en juego");
 		int op= sc.nextInt();
 		cartaatack=hand.get(op);
@@ -288,7 +291,25 @@ public class Game {
 		}
 		player2pre();
 	}
+
+	private static ArrayDeque<Carta> barajar(ArrayDeque<Carta> ad) {
+		ArrayList<Carta> as = new ArrayList<>();
+		ArrayList<Carta> as2 = new ArrayList<>();
+		as.addAll(ad);
+		as2.addAll(ad);
+		for(int i=0;i<as2.size();i++) {
+			as.remove(as2.get(i));
+			as.add(rand.nextInt(ad.size()),as2.get(i));
+			
+		}
 		
+		ad.clear();
+		ad.addAll(as);
+		
+		return ad;
+		
+	}
+	
 	private static void draw() {
 		for(int i=0;i<4;i++) {
 			hand.add(deck1.getFirst());
@@ -476,7 +497,6 @@ public class Game {
 		}
 	}
 
-	
 	public static ArrayList<Carta> sobres() {
 		ArrayList<Carta> sobre = new ArrayList<>();
 		for(int i=0;i<6;i++) {
